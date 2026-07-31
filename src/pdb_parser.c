@@ -6,9 +6,6 @@
 
 #include "../header/atom.h"
 
-int add_new_atom(atom *atom_tab[], int size, char *buffer);
-void clean_tab(atom *atom_tab[], int size);
-
 void ft_print_str(char *s1, int fd) {
   while (*s1) {
     write(fd, s1, 1);
@@ -62,7 +59,8 @@ int read_file(char *name, char *arg, int *tab_size, atom *atom_tab[]) {
       new_tab_size = add_new_atom(atom_tab, *tab_size, buffer);
       if (new_tab_size == -1)
         clean_tab(atom_tab, *tab_size);
-      write(1, buffer, sread);
+      *tab_size = new_tab_size;
+     // write(1, atom_tab[tab_size].x, 8);
     }
   }
   close(fd);

@@ -1,7 +1,7 @@
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-SOURCES = main.c src/pdb_parser.c
+SOURCES = main.c src/pdb_parser.c src/utils.c src/atom.c
 OBJECTS_DIR = object
 OBJECTS = $(SOURCES:%.c=$(OBJECTS_DIR)/%.o)
 INC =-I header/
@@ -16,6 +16,9 @@ $(OBJECTS_DIR)/%.o:%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
+debug: fclean
+	$(MAKE) CFLAGS="-Wall -Werror -Wextra -g"
+
 clean: 
 	rm -rf $(OBJECTS_DIR)
 
@@ -24,4 +27,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean all
+.PHONY: clean fclean all debug

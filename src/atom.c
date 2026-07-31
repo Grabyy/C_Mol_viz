@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include "../header/atom.h"
 
-float ft_atoi(char *s);
-
 atom  *create_atom(char type, float x, float y, float z)
 {
   atom  *a;
@@ -20,7 +18,9 @@ atom  *create_atom(char type, float x, float y, float z)
 
 int add_space(atom *a_tab[], int size)
 {
-  a_tab = realloc(a_tab, (sizeof(*a_tab) + sizeof(atom)));
+//  if (size)
+  a_tab = realloc(a_tab, (sizeof(*a_tab) + sizeof(atom*)));
+  a_tab[size] = malloc(sizeof(atom));
   if (!a_tab)
     return -1;
   return size++;
@@ -31,6 +31,7 @@ float get_coord(int pos, char *buffer)
   char tmp[8];
   int i;
 
+  i = 0;
   while (i < 8)
   {
     tmp[i] = buffer[pos + i];
@@ -44,8 +45,8 @@ int add_new_atom(atom *atom_tab[], int size, char *buffer)
   size = add_space(atom_tab, size);
   if (size == -1)
     return size;
-  atom_tab[size] = create_atom(buffer[13], 
-                              get_coord(31, buffer), 
+  atom_tab[size] = create_atom(buffer[13],
+                              get_coord(31, buffer),
                               get_coord(39, buffer),
                               get_coord(47, buffer));
   return size;
