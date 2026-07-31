@@ -19,6 +19,9 @@ $(OBJECTS_DIR)/%.o:%.c
 debug: fclean
 	$(MAKE) CFLAGS="-Wall -Werror -Wextra -g"
 
+compile: fclean
+	$(MAKE) CFLAGS=""
+
 clean: 
 	rm -rf $(OBJECTS_DIR)
 

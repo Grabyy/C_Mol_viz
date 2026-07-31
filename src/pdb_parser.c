@@ -60,7 +60,6 @@ int read_file(char *name, char *arg, int *tab_size, atom *atom_tab[]) {
       if (new_tab_size == -1)
         clean_tab(atom_tab, *tab_size);
       *tab_size = new_tab_size;
-     // write(1, atom_tab[tab_size].x, 8);
     }
   }
   close(fd);

@@ -18,12 +18,12 @@ atom  *create_atom(char type, float x, float y, float z)
 
 int add_space(atom *a_tab[], int size)
 {
-//  if (size)
-  a_tab = realloc(a_tab, (sizeof(*a_tab) + sizeof(atom*)));
+  if (size)
+    a_tab = realloc(a_tab, (sizeof(*a_tab) + sizeof(atom*)));
   a_tab[size] = malloc(sizeof(atom));
   if (!a_tab)
     return -1;
-  return size++;
+  return size;
 }
 
 float get_coord(int pos, char *buffer)
@@ -49,6 +49,7 @@ int add_new_atom(atom *atom_tab[], int size, char *buffer)
                               get_coord(31, buffer),
                               get_coord(39, buffer),
                               get_coord(47, buffer));
+  size++;
   return size;
 }
 
