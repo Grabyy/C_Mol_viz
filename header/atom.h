@@ -1,3 +1,5 @@
+#ifndef ATOM_H
+#define ATOM_H
 
 typedef struct satom 
 {
@@ -6,3 +8,5 @@ typedef struct satom
   float y;
   float z;
 } atom;
+
+#endif
