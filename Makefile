@@ -30,4 +30,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean all debug
+.PHONY: clean fclean all debug compile
