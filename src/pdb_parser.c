@@ -35,11 +35,11 @@ void ft_print_error(char *name, char *s) {
   ft_print_str("\n", 2);
 }
 
-int read_file(char *name, char *arg, int *tab_size, atom *atom_tab[]) {
+int read_file(char *name, char *arg, int *tab_size, atom ***atom_tab) {
   int fd;
   char buffer[81];
   ssize_t sread;
-  int new_tab_size;
+  atom **tmp;
 
   fd = open(arg, O_RDONLY);
   if (fd == -1) {
@@ -56,10 +56,11 @@ int read_file(char *name, char *arg, int *tab_size, atom *atom_tab[]) {
     }
     if (ft_is_atom(buffer))
     {
-      new_tab_size = add_new_atom(atom_tab, *tab_size, buffer);
-      if (new_tab_size == -1)
-        clean_tab(atom_tab, *tab_size);
-      *tab_size = new_tab_size;
+      tmp = add_new_atom(*atom_tab, tab_size, buffer);
+      if (!tmp)
+        return (-1);
+      *atom_tab = tmp;
+      tmp = NULL;
     }
   }
   close(fd);

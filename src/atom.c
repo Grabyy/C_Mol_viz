@@ -16,14 +16,14 @@ atom  *create_atom(char type, float x, float y, float z)
   return a;
 }
 
-int add_space(atom *a_tab[], int size)
+atom** add_space(atom *a_tab[], int size)
 {
-  if (size)
-    a_tab = realloc(a_tab, (sizeof(*a_tab) + sizeof(atom*)));
-  a_tab[size] = malloc(sizeof(atom));
-  if (!a_tab)
-    return -1;
-  return size;
+  atom **p;
+  
+  p = realloc(a_tab, ((size + 1) * sizeof(atom*)));
+  if (!p)
+    return NULL;
+  return p;
 }
 
 float get_coord(int pos, char *buffer)
@@ -40,25 +40,26 @@ float get_coord(int pos, char *buffer)
   return ft_atoi(tmp);
 }
 
-int add_new_atom(atom *atom_tab[], int size, char *buffer)
+atom **add_new_atom(atom **atom_tab, int *tab_size, char *buffer)
 {
-  size = add_space(atom_tab, size);
-  if (size == -1)
-    return size;
-  atom_tab[size] = create_atom(buffer[13],
+  atom_tab = add_space(atom_tab, *tab_size);
+  if (!atom_tab)
+    return NULL;
+  atom_tab[*tab_size] = create_atom(buffer[13],
                               get_coord(31, buffer),
                               get_coord(39, buffer),
                               get_coord(47, buffer));
-  size++;
-  return size;
+  (*tab_size)++;
+  return atom_tab;
 }
 
-void clean_tab(atom *atom_tab[], int size)
+void clean_tab(atom **atom_tab, int *tab_size)
 {
-  while (size)
+  while (*tab_size >= 0)
   {
-    free(atom_tab[size-1]);
-    size--;
+    free(atom_tab[*tab_size]);
+    (*tab_size)--;
   }
   free(atom_tab);
+  free(tab_size);
 }
