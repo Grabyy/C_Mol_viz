@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include "../header/atom.h"
+#include "atom.h"
 
 atom  *create_atom(char type, float x, float y, float z)
 {

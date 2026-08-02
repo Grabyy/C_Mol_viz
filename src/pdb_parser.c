@@ -1,19 +1,15 @@
-#include <errno.h>
-#include <fcntl.h>
-#include <libgen.h>
-#include <string.h>
-#include <unistd.h>
+#include "pdb_parser.h"
 
-#include "../header/atom.h"
-
-void ft_print_str(char *s1, int fd) {
+void ft_print_str(char *s1, int fd) 
+{
   while (*s1) {
     write(fd, s1, 1);
     s1++;
   }
 }
 
-int ft_is_atom(char *buffer) {
+int ft_is_atom(char *buffer) 
+{
   char *atom = "ATOM";
   int i;
 
@@ -26,7 +22,8 @@ int ft_is_atom(char *buffer) {
   return 0;
 }
 
-void ft_print_error(char *name, char *s) {
+void ft_print_error(char *name, char *s) 
+{
   ft_print_str(basename(name), 2);
   ft_print_str(": ", 2);
   ft_print_str(s, 2);
@@ -35,7 +32,8 @@ void ft_print_error(char *name, char *s) {
   ft_print_str("\n", 2);
 }
 
-int read_file(char *name, char *arg, int *tab_size, atom ***atom_tab) {
+int read_file(char *name, char *arg, int *tab_size, atom ***atom_tab) 
+{
   int fd;
   char buffer[81];
   ssize_t sread;

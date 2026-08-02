@@ -1,10 +1,9 @@
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-SOURCES = main.c src/pdb_parser.c src/utils.c src/atom.c
+SOURCES = src/main.c src/pdb_parser.c src/utils.c src/atom.c
 OBJECTS_DIR = object
 OBJECTS = $(SOURCES:%.c=$(OBJECTS_DIR)/%.o)
-INC =-I header/
 TARGET = C_mol_viz
 
 all: $(TARGET)
@@ -14,7 +13,7 @@ $(TARGET): $(OBJECTS)
 
 $(OBJECTS_DIR)/%.o:%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 debug: fclean
 	$(MAKE) CFLAGS="-Wall -Werror -Wextra -g"
